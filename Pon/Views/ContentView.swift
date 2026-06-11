@@ -1,13 +1,15 @@
 import SwiftUI
 
-// 1. 메인 화면 (탭바 및 전체 배경 설정)
 struct ContentView: View {
     @State var viewModel: TodoViewModel
+    
+    // 설정에서 저장한 값 불러오기
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    @AppStorage("themeColorHex") private var themeColorHex: String = "#007AFF"
     
     init(viewModel: TodoViewModel) {
         self._viewModel = State(initialValue: viewModel)
         
-        // 탭바의 배경색을 시스템 기본 배경색으로 강제 통일하여 일체감을 줌
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.systemBackground
@@ -18,7 +20,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            TodoListView(viewModel: viewModel)
+            TodoListView(viewModel: viewModel, themeColor: Color(hex: themeColorHex))
                 .tabItem {
                     Image(systemName: "checklist")
                     Text("タスク")
@@ -30,13 +32,17 @@ struct ContentView: View {
                     Text("設定")
                 }
         }
+        // 사용자의 설정에 따라 다크모드 강제 지정
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+        // 탭바 아이콘 색상을 테마 컬러로 변경
+        .accentColor(Color(hex: themeColorHex))
     }
 }
 
-// 2. 할 일 목록 뷰
 struct TodoListView: View {
     @State var viewModel: TodoViewModel
     @State private var newTaskTitle: String = ""
+    let themeColor: Color // 상위에서 전달받은 테마 컬러
     
     var todayString: String {
         let formatter = DateFormatter()
@@ -52,7 +58,8 @@ struct TodoListView: View {
                     HStack {
                         Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
                             .font(.title2)
-                            .foregroundColor(task.isCompleted ? .secondary : .primary)
+                            // 완료 여부에 따라 테마 컬러 적용
+                            .foregroundColor(task.isCompleted ? themeColor : .primary)
                             .onTapGesture {
                                 withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                                     viewModel.toggleTask(task: task)
@@ -78,12 +85,11 @@ struct TodoListView: View {
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 0) {
                     HStack(spacing: 12) {
-                        // 캡슐 모양이 적용된 입력 필드
                         TextField("新しいタスクを入力", text: $newTaskTitle)
                             .padding(.vertical, 10)
                             .padding(.horizontal, 16)
-                            .background(Color(UIColor.secondarySystemFill)) // 약간 어두운 내부 배경
-                            .clipShape(Capsule()) // 완벽한 캡슐 형태로 자르기
+                            .background(Color(UIColor.secondarySystemFill))
+                            .clipShape(Capsule())
                         
                         Button(action: {
                             guard !newTaskTitle.isEmpty else { return }
@@ -94,12 +100,12 @@ struct TodoListView: View {
                         }) {
                             Image(systemName: "arrow.up.circle.fill")
                                 .font(.system(size: 32))
-                                .foregroundColor(newTaskTitle.isEmpty ? .gray : .blue)
+                                // 업로드 버튼에도 테마 컬러 적용
+                                .foregroundColor(newTaskTitle.isEmpty ? .gray : themeColor)
                         }
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
-                    // 탭바와 동일한 시스템 배경색을 칠해서 하나로 이어지게 만듦
                     .background(Color(UIColor.systemBackground))
                 }
             }
