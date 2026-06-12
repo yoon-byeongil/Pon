@@ -41,6 +41,7 @@
 		0CF7C45C2FDBCA0B0076793C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		0CF7C45E2FDBCA0C0076793C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		0CF7C46B2FDBCA0E0076793C /* Pon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CF7C4742FDBCE6E0076793C /* PonWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PonWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -54,9 +55,17 @@
 		0CF7C4722FDBCA4C0076793C /* Exceptions for "Pon" folder in "PonWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Models/SharedDatabase.swift,
 				Models/TodoTask.swift,
 			);
 			target = 0CF7C4592FDBCA0B0076793C /* PonWidgetExtension */;
+		};
+		0CF7C47B2FDBCF580076793C /* Exceptions for "PonWidget" folder in "Pon" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ToggleTaskIntent.swift,
+			);
+			target = 0CF7C43A2FDA78320076793C /* Pon */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -72,6 +81,7 @@
 		0CF7C4602FDBCA0C0076793C /* PonWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				0CF7C47B2FDBCF580076793C /* Exceptions for "PonWidget" folder in "Pon" target */,
 				0CF7C46C2FDBCA0E0076793C /* Exceptions for "PonWidget" folder in "PonWidgetExtension" target */,
 			);
 			path = PonWidget;
@@ -102,6 +112,7 @@
 		0CF7C4322FDA78320076793C = {
 			isa = PBXGroup;
 			children = (
+				0CF7C4742FDBCE6E0076793C /* PonWidgetExtension.entitlements */,
 				0CF7C43D2FDA78320076793C /* Pon */,
 				0CF7C45A2FDBCA0B0076793C /* PonWidgetExtension.appex */,
 				0CF7C4602FDBCA0C0076793C /* PonWidget */,
@@ -373,8 +384,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pon/Pon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QD3698R27J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -404,8 +417,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pon/Pon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QD3698R27J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -435,8 +450,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PonWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QD3698R27J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PonWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PonWidget;
@@ -464,8 +481,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PonWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QD3698R27J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PonWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PonWidget;

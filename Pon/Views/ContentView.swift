@@ -1,9 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @State var viewModel: TodoViewModel
     
-    // 설정에서 저장한 값 불러오기
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     @AppStorage("themeColorHex") private var themeColorHex: String = "#007AFF"
     
@@ -20,6 +20,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
+            // ⭐️ 뷰모델만 넘겨줌 (tasks는 TodoListView가 직접 감시함)
             TodoListView(viewModel: viewModel, themeColor: Color(hex: themeColorHex))
                 .tabItem {
                     Image(systemName: "checklist")
@@ -32,17 +33,19 @@ struct ContentView: View {
                     Text("設定")
                 }
         }
-        // 사용자의 설정에 따라 다크모드 강제 지정
         .preferredColorScheme(isDarkMode ? .dark : .light)
-        // 탭바 아이콘 색상을 테마 컬러로 변경
         .accentColor(Color(hex: themeColorHex))
+        // 수동으로 fetchTasks를 부르던 .onChange(of: scenePhase) 부분은 완전히 삭제!
     }
 }
 
 struct TodoListView: View {
     @State var viewModel: TodoViewModel
     @State private var newTaskTitle: String = ""
-    let themeColor: Color // 상위에서 전달받은 테마 컬러
+    let themeColor: Color
+    
+    // ⭐️ 핵심: @Query를 써서 공유 DB의 변경사항을 뷰가 실시간으로 자동 감시함
+    @Query(sort: \TodoTask.createdAt, order: .forward) var tasks: [TodoTask]
     
     var todayString: String {
         let formatter = DateFormatter()
@@ -54,11 +57,11 @@ struct TodoListView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.tasks) { task in
+                // ⭐️ 뷰모델의 tasks가 아니라 @Query로 불러온 tasks를 사용함
+                ForEach(tasks) { task in
                     HStack {
                         Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
                             .font(.title2)
-                            // 완료 여부에 따라 테마 컬러 적용
                             .foregroundColor(task.isCompleted ? themeColor : .primary)
                             .onTapGesture {
                                 withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
@@ -76,7 +79,7 @@ struct TodoListView: View {
                 .onDelete { indexSet in
                     withAnimation {
                         for index in indexSet {
-                            viewModel.deleteTask(task: viewModel.tasks[index])
+                            viewModel.deleteTask(task: tasks[index])
                         }
                     }
                 }
@@ -100,7 +103,6 @@ struct TodoListView: View {
                         }) {
                             Image(systemName: "arrow.up.circle.fill")
                                 .font(.system(size: 32))
-                                // 업로드 버튼에도 테마 컬러 적용
                                 .foregroundColor(newTaskTitle.isEmpty ? .gray : themeColor)
                         }
                     }
