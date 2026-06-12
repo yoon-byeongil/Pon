@@ -40,50 +40,51 @@ struct SimpleEntry: TimelineEntry {
     let tasks: [TodoTask]
 }
 
-// 3. 위젯 뷰 (iOS 26 심플 디자인 및 좌측 정렬)
+// 3. 위젯 뷰 (iOS 26 Liquid Glass & 좌측 정렬 적용)
 struct PonWidgetEntryView : View {
     var entry: Provider.Entry
+    
+    // 시스템의 컬러 스킴(라이트/다크)을 감지
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 16) {
             Text("ポン！")
-                .font(.headline)
-                .foregroundColor(.secondary)
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundColor(.primary)
             
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 12) {
                 if entry.tasks.isEmpty {
                     Text("残りのタスクはありません🎉")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+                        .font(.system(size: 15, weight: .regular))
+                        .foregroundColor(.secondary)
                 } else {
-                    // 공간 제약상 최대 4개까지만 표시
-                    ForEach(entry.tasks.prefix(4)) { task in
-                        HStack {
-                            // 메인 앱 실행 없이 위젯에서 바로 체크(완료)하는 버튼
+                    ForEach(entry.tasks.prefix(3)) { task in
+                        HStack(spacing: 12) {
                             Button(intent: ToggleTaskIntent(taskID: task.id.uuidString)) {
                                 Image(systemName: "circle")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                                    .font(.title3)
+                                    .foregroundColor(.secondary)
                             }
                             .buttonStyle(.plain)
                             
                             Text(task.title)
-                                .font(.subheadline)
-                                .foregroundColor(.primary)
+                                .font(.system(size: 15, weight: .regular))
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                 .lineLimit(1)
                         }
                     }
                 }
             }
-            Spacer()
+            Spacer(minLength: 0)
         }
-        // 위젯 내부 요소를 전체적으로 왼쪽 상단에 밀착
+        // ⭐️ 누락되었던 정렬 코드 추가: 전체 요소를 왼쪽 상단으로 고정
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        // 위젯 배경을 투명하게 만들어 홈 화면 배경에 동화시킴
-        .containerBackground(Color.clear, for: .widget)
+        .containerBackground(for: .widget) {
+            Rectangle().fill(.ultraThinMaterial)
+        }
     }
 }
-
 // 4. 위젯 메인
 @main
 struct PonWidget: Widget {
