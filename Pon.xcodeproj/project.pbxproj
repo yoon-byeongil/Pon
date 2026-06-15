@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0CF7C4892FDF99730076793C /* Pon */ = {
+		0C7271702FE03A0A004F611F /* Pon */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Pon;
 			sourceTree = "<group>";
@@ -32,7 +32,7 @@
 		0CF7C47E2FDF99730076793C = {
 			isa = PBXGroup;
 			children = (
-				0CF7C4892FDF99730076793C /* Pon */,
+				0C7271702FE03A0A004F611F /* Pon */,
 				0CF7C4882FDF99730076793C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0CF7C4892FDF99730076793C /* Pon */,
+				0C7271702FE03A0A004F611F /* Pon */,
 			);
 			name = Pon;
 			packageProductDependencies = (
