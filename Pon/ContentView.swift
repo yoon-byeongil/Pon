@@ -14,22 +14,43 @@ struct ContentView: View {
         Todo(title: "책 읽기", isCompleted: true)
     ]
     
+    @State var todotext: String = ""
     
     var body: some View {
-        List(todos) { todo in
+        VStack {
+            List(todos) { todo in
+                HStack {
+                    Button(action: {
+                        if let indextodo = todos.firstIndex(where: { $0.id == todo.id }) {
+                            todos[indextodo].isCompleted.toggle()
+                        }
+                    }) {
+                        if todo.isCompleted {
+                            Image(systemName: "checkmark.circle.fill")
+                        } else {
+                            Image(systemName: "circle")
+                        }
+                    }
+                    Text(todo.title)
+                }
+            }
+            
             HStack {
+                TextField (
+                    "Todoを追加する",
+                    text: $todotext
+                )
+                .padding()
+                
                 Button(action: {
-                    if let indextodo = todos.firstIndex(where: { $0.id == todo.id }) {
-                        todos[indextodo].isCompleted.toggle()
+                    if !todotext.isEmpty {
+                        todos.append(Todo(title: todotext, isCompleted: false))
+                        todotext = ""
                     }
                 }) {
-                    if todo.isCompleted {
-                        Image(systemName: "checkmark.circle.fill")
-                    } else {
-                        Image(systemName: "circle")
-                    }
+                    Image(systemName: "arrow.up")
                 }
-                Text(todo.title)
+                .padding()
             }
         }
     }
