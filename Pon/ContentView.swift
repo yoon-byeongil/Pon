@@ -1,21 +1,31 @@
-//
-//  ContentView.swift
-//  Pon
-//
-//  Created by 윤병일 on 2026/06/15.
-//
-
 import SwiftUI
 
+struct Todo: Identifiable {
+    var id = UUID()
+    var title: String
+    var isCompleted: Bool
+}
+
 struct ContentView: View {
+    
+    var todos: [Todo] = [
+        Todo(title: "운동하기", isCompleted: false),
+        Todo(title: "장보기", isCompleted: true),
+        Todo(title: "책 읽기", isCompleted: true)
+    ]
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List(todos) { todo in
+            HStack {
+                if todo.isCompleted {
+                    Image(systemName: "checkmark.circle.fill")
+                } else {
+                    Image(systemName: "circle")
+                }
+                Text(todo.title)
+            }
         }
-        .padding()
     }
 }
 
