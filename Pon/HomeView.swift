@@ -36,11 +36,7 @@ struct HomeView: View {
                 .padding()
                 
                 Button(action: {
-                    if !todotext.isEmpty {
-                        let newTodo = Todo(title: todotext, isCompleted: false)
-                        context.insert(newTodo)
-                        todotext = ""
-                    }
+                    addList()
                 }) {
                     Image(systemName: "arrow.up")
                 }
@@ -55,6 +51,14 @@ struct HomeView: View {
                 let item = todos[index]
                 context.delete(item)
             }
+        }
+    }
+    
+    func addList() {
+        if !todotext.isEmpty {
+            let newTodo = Todo(title: todotext, isCompleted: false)
+            context.insert(newTodo)
+            todotext = ""
         }
     }
 }
