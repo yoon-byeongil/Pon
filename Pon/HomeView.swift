@@ -33,6 +33,7 @@ struct HomeView: View {
                         .onDelete(perform: deleteList)
                     }
                     .listRowSpacing(10)
+                    .scrollDismissesKeyboard(.immediately)
                 } else {
                     ContentUnavailableView(
                         "やることを追加しましょう",
@@ -43,6 +44,10 @@ struct HomeView: View {
                 HStack {
                     TextField ("Todoを追加する", text: $todotext)
                         .padding(.horizontal)
+                        .onSubmit {
+                            addList()
+                        }
+                        .submitLabel(.send)
                     
                     Button(action: {
                         addList()
@@ -57,9 +62,9 @@ struct HomeView: View {
                 .shadow(radius: 4)
                 .padding(.horizontal)
                 .padding(.bottom)
-            }
-        }
-    }
+            } // Vstack
+        } // ZStack
+    } // body
     
     func deleteList(at offsets: IndexSet) {
         withAnimation {
