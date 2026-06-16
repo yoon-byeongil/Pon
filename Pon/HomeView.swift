@@ -7,6 +7,7 @@ struct Todo: Identifiable {
 }
 
 struct HomeView: View {
+    
     @State var todos: [Todo] = [
         Todo(title: "운동하기", isCompleted: false),
         Todo(title: "장보기", isCompleted: true),
