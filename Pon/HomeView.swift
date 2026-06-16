@@ -9,38 +9,54 @@ struct HomeView: View {
     @State var todotext: String = ""
     
     var body: some View {
-        VStack {
-            List() {
-                ForEach(todos) { todo in
-                    HStack {
-                        Button(action: {
-                            todo.isCompleted.toggle()
-                        }) {
-                            if todo.isCompleted {
-                                Image(systemName: "checkmark.circle.fill")
-                            } else {
-                                Image(systemName: "circle")
+        ZStack {
+            Color(UIColor.systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            VStack {
+                if !todos.isEmpty {
+                    List() {
+                        ForEach(todos) { todo in
+                            HStack {
+                                Button(action: {
+                                    todo.isCompleted.toggle()
+                                }) {
+                                    if todo.isCompleted {
+                                        Image(systemName: "checkmark.circle.fill")
+                                    } else {
+                                        Image(systemName: "circle")
+                                    }
+                                }
+                                Text(todo.title)
                             }
                         }
-                        Text(todo.title)
+                        .onDelete(perform: deleteList)
+                    }
+                    .listRowSpacing(10)
+                } else {
+                    ContentUnavailableView(
+                        "やることを追加しましょう",
+                        systemImage: "list.bullet.badge.ellipsis"
+                    )
+                }
+                
+                HStack {
+                    TextField ("Todoを追加する", text: $todotext)
+                        .padding(.horizontal)
+                    
+                    Button(action: {
+                        addList()
+                    }) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.system(size: 32))
                     }
                 }
-                .onDelete(perform: deleteList)
-            }
-            
-            HStack {
-                TextField (
-                    "Todoを追加する",
-                    text: $todotext
-                )
-                .padding()
-                
-                Button(action: {
-                    addList()
-                }) {
-                    Image(systemName: "arrow.up")
-                }
-                .padding()
+                .padding(12)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(52)
+                .shadow(radius: 4)
+                .padding(.horizontal)
+                .padding(.bottom)
             }
         }
     }
