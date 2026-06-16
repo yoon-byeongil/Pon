@@ -1,18 +1,10 @@
 import SwiftUI
-
-struct Todo: Identifiable {
-    var id = UUID()
-    var title: String
-    var isCompleted: Bool
-}
+import SwiftData
 
 struct HomeView: View {
     
-    @State var todos: [Todo] = [
-        Todo(title: "운동하기", isCompleted: false),
-        Todo(title: "장보기", isCompleted: true),
-        Todo(title: "책 읽기", isCompleted: true)
-    ]
+    @Environment(\.modelContext) var context
+    @Query var todos: [Todo]
     
     @State var todotext: String = ""
     
@@ -22,9 +14,7 @@ struct HomeView: View {
                 ForEach(todos) { todo in
                     HStack {
                         Button(action: {
-                            if let indextodo = todos.firstIndex(where: { $0.id == todo.id }) {
-                                todos[indextodo].isCompleted.toggle()
-                            }
+                            todo.isCompleted.toggle()
                         }) {
                             if todo.isCompleted {
                                 Image(systemName: "checkmark.circle.fill")
@@ -47,7 +37,8 @@ struct HomeView: View {
                 
                 Button(action: {
                     if !todotext.isEmpty {
-                        todos.append(Todo(title: todotext, isCompleted: false))
+                        let newTodo = Todo(title: todotext, isCompleted: false)
+                        context.insert(newTodo)
                         todotext = ""
                     }
                 }) {
@@ -59,10 +50,16 @@ struct HomeView: View {
     }
     
     func deleteList(at offsets: IndexSet) {
-        todos.remove(atOffsets: offsets)
+        withAnimation {
+            for index in offsets {
+                let item = todos[index]
+                context.delete(item)
+            }
+        }
     }
 }
 
 #Preview {
     HomeView()
+        .modelContainer(for: Todo.self, inMemory: true)
 }
