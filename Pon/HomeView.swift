@@ -4,7 +4,7 @@ import SwiftData
 struct HomeView: View {
     
     @Environment(\.modelContext) var context
-    @Query(sort: \Todo.createAt, order: .reverse) var todos: [Todo]
+    @Query(sort: \Todo.createAt, order: .reverse, animation: .default) var todos: [Todo]
     
     @State var todotext: String = ""
     
@@ -19,7 +19,9 @@ struct HomeView: View {
                         ForEach(todos) { todo in
                             HStack {
                                 Button(action: {
-                                    todo.isCompleted.toggle()
+                                    withAnimation(.default) {
+                                        todo.isCompleted.toggle()
+                                    }
                                 }) {
                                     if todo.isCompleted {
                                         Image(systemName: "checkmark.circle.fill")
