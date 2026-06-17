@@ -4,7 +4,7 @@ import SwiftData
 struct HomeView: View {
     
     @Environment(\.modelContext) var context
-    @Query var todos: [Todo]
+    @Query(sort: \Todo.createAt, order: .reverse) var todos: [Todo]
     
     @State var todotext: String = ""
     
@@ -28,6 +28,8 @@ struct HomeView: View {
                                     }
                                 }
                                 Text(todo.title)
+                                    .strikethrough(todo.isCompleted)
+                                    .foregroundStyle(todo.isCompleted ? .gray : .primary)
                             }
                         }
                         .onDelete(perform: deleteList)

@@ -13,10 +13,12 @@ class Todo: Identifiable {
     var id = UUID()
     var title: String
     var isCompleted: Bool
+    var createAt: Date
     
     init(id: UUID = UUID(), title: String, isCompleted: Bool) {
         self.id = id
         self.title = title
         self.isCompleted = isCompleted
+        self.createAt = Date()
     }
 }
