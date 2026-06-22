@@ -27,13 +27,6 @@ struct SettingsView: View {
     }
 }
 
-struct AboutView: View {
-    var body: some View {
-        Text("プログラマー")
-            .font(.title)
-    }
-}
-
 #Preview {
     SettingsView()
 }
