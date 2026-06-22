@@ -25,6 +25,10 @@ struct HomeView: View {
                 .ignoresSafeArea()
             
             VStack {
+                Text(Date(), format: .dateTime.day().month().year().weekday())
+                    .environment(\.locale, Locale(identifier: "ja_JP"))
+                    .font(.title)
+                
                 if !todos.isEmpty {
                     List() {
                         ForEach(todos) { todo in
