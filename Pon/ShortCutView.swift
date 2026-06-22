@@ -12,7 +12,7 @@ struct ShortCutView: View {
                 
                 List {
                     Section(header: Text("活用方法")) {
-                        HStack {
+                        HStack(alignment: .top) {
                             Image(systemName: "button.programmable")
                                 .font(.system(size: 24))
                                 .frame(width: 36)
@@ -23,7 +23,7 @@ struct ShortCutView: View {
                                     .font(.subheadline)
                             }
                         }
-                        HStack {
+                        HStack(alignment: .top) {
                             Image(systemName: "widget.small")
                                 .font(.system(size: 24))
                                 .frame(width: 36)
@@ -34,7 +34,7 @@ struct ShortCutView: View {
                                     .font(.subheadline)
                             }
                         }
-                        HStack {
+                        HStack(alignment: .top) {
                             Image(systemName: "hand.tap.fill")
                                 .font(.system(size: 24))
                                 .frame(width: 36)
