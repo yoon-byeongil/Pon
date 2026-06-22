@@ -10,6 +10,17 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
+            /*
+            LinearGradient(
+                stops: [
+                    .init(color: Color(red: 1, green: 0.0, blue: 0.0), location: -0.15),
+                    .init(color: Color(.systemBackground), location: 0.2)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            */
             Color(UIColor.systemGroupedBackground)
                 .ignoresSafeArea()
             
