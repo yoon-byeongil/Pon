@@ -6,14 +6,76 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0CFE90E92FEB971E00805785 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CFE90E82FEB971E00805785 /* WidgetKit.framework */; };
+		0CFE90EB2FEB971E00805785 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CFE90EA2FEB971E00805785 /* SwiftUI.framework */; };
+		0CFE90F62FEB971F00805785 /* PonWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0CFE90E62FEB971E00805785 /* PonWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0CFE90F42FEB971F00805785 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CF7C47F2FDF99730076793C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0CFE90E52FEB971E00805785;
+			remoteInfo = PonWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0CFE90FB2FEB971F00805785 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0CFE90F62FEB971F00805785 /* PonWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0CF7C4872FDF99730076793C /* Pon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CFE90E62FEB971E00805785 /* PonWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PonWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CFE90E82FEB971E00805785 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		0CFE90EA2FEB971E00805785 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		0CFE90FD2FEB998200805785 /* PonWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PonWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0CFE90F72FEB971F00805785 /* Exceptions for "PonWidget" folder in "PonWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0CFE90E52FEB971E00805785 /* PonWidgetExtension */;
+		};
+		0CFE90FF2FEBA2D100805785 /* Exceptions for "Pon" folder in "PonWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Model/TodoModel.swift,
+			);
+			target = 0CFE90E52FEB971E00805785 /* PonWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0C7271702FE03A0A004F611F /* Pon */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0CFE90FF2FEBA2D100805785 /* Exceptions for "Pon" folder in "PonWidgetExtension" target */,
+			);
 			path = Pon;
+			sourceTree = "<group>";
+		};
+		0CFE90EC2FEB971E00805785 /* PonWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0CFE90F72FEB971F00805785 /* Exceptions for "PonWidget" folder in "PonWidgetExtension" target */,
+			);
+			path = PonWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,13 +88,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0CFE90E32FEB971E00805785 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CFE90EB2FEB971E00805785 /* SwiftUI.framework in Frameworks */,
+				0CFE90E92FEB971E00805785 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0CF7C47E2FDF99730076793C = {
 			isa = PBXGroup;
 			children = (
+				0CFE90FD2FEB998200805785 /* PonWidgetExtension.entitlements */,
 				0C7271702FE03A0A004F611F /* Pon */,
+				0CFE90EC2FEB971E00805785 /* PonWidget */,
+				0CFE90E72FEB971E00805785 /* Frameworks */,
 				0CF7C4882FDF99730076793C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,8 +115,18 @@
 			isa = PBXGroup;
 			children = (
 				0CF7C4872FDF99730076793C /* Pon.app */,
+				0CFE90E62FEB971E00805785 /* PonWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0CFE90E72FEB971E00805785 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0CFE90E82FEB971E00805785 /* WidgetKit.framework */,
+				0CFE90EA2FEB971E00805785 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -55,10 +139,12 @@
 				0CF7C4832FDF99730076793C /* Sources */,
 				0CF7C4842FDF99730076793C /* Frameworks */,
 				0CF7C4852FDF99730076793C /* Resources */,
+				0CFE90FB2FEB971F00805785 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0CFE90F52FEB971F00805785 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0C7271702FE03A0A004F611F /* Pon */,
@@ -69,6 +155,28 @@
 			productName = Pon;
 			productReference = 0CF7C4872FDF99730076793C /* Pon.app */;
 			productType = "com.apple.product-type.application";
+		};
+		0CFE90E52FEB971E00805785 /* PonWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CFE90F82FEB971F00805785 /* Build configuration list for PBXNativeTarget "PonWidgetExtension" */;
+			buildPhases = (
+				0CFE90E22FEB971E00805785 /* Sources */,
+				0CFE90E32FEB971E00805785 /* Frameworks */,
+				0CFE90E42FEB971E00805785 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0CFE90EC2FEB971E00805785 /* PonWidget */,
+			);
+			name = PonWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = PonWidgetExtension;
+			productReference = 0CFE90E62FEB971E00805785 /* PonWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +189,9 @@
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					0CF7C4862FDF99730076793C = {
+						CreatedOnToolsVersion = 26.4.1;
+					};
+					0CFE90E52FEB971E00805785 = {
 						CreatedOnToolsVersion = 26.4.1;
 					};
 				};
@@ -100,12 +211,20 @@
 			projectRoot = "";
 			targets = (
 				0CF7C4862FDF99730076793C /* Pon */,
+				0CFE90E52FEB971E00805785 /* PonWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0CF7C4852FDF99730076793C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CFE90E42FEB971E00805785 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +241,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0CFE90E22FEB971E00805785 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0CFE90F52FEB971F00805785 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0CFE90E52FEB971E00805785 /* PonWidgetExtension */;
+			targetProxy = 0CFE90F42FEB971F00805785 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0CF7C4902FDF99760076793C /* Debug */ = {
@@ -251,6 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pon/Pon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QD3698R27J;
@@ -283,6 +418,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pon/Pon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QD3698R27J;
@@ -310,6 +446,68 @@
 			};
 			name = Release;
 		};
+		0CFE90F92FEB971F00805785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PonWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QD3698R27J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PonWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PonWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yoon.Pon.PonWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0CFE90FA2FEB971F00805785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PonWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QD3698R27J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PonWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PonWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yoon.Pon.PonWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +525,15 @@
 			buildConfigurations = (
 				0CF7C4932FDF99760076793C /* Debug */,
 				0CF7C4942FDF99760076793C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0CFE90F82FEB971F00805785 /* Build configuration list for PBXNativeTarget "PonWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CFE90F92FEB971F00805785 /* Debug */,
+				0CFE90FA2FEB971F00805785 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

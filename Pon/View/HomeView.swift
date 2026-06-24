@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct HomeView: View {
     
@@ -36,6 +37,7 @@ struct HomeView: View {
                                 Button(action: {
                                     withAnimation(.default) {
                                         todo.isCompleted.toggle()
+                                        WidgetCenter.shared.reloadAllTimelines()
                                     }
                                 }) {
                                     if todo.isCompleted {
@@ -90,6 +92,7 @@ struct HomeView: View {
             for index in offsets {
                 let item = todos[index]
                 context.delete(item)
+                WidgetCenter.shared.reloadAllTimelines()
             }
         }
     }
@@ -99,6 +102,7 @@ struct HomeView: View {
             let newTodo = Todo(title: todotext, isCompleted: false)
             context.insert(newTodo)
             todotext = ""
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }
