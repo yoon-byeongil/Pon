@@ -37,8 +37,8 @@ struct HomeView: View {
                                 Button(action: {
                                     withAnimation(.default) {
                                         todo.isCompleted.toggle()
-                                        WidgetCenter.shared.reloadAllTimelines()
                                     }
+                                    WidgetCenter.shared.reloadAllTimelines()
                                 }) {
                                     if todo.isCompleted {
                                         Image(systemName: "checkmark.circle.fill")
@@ -92,9 +92,9 @@ struct HomeView: View {
             for index in offsets {
                 let item = todos[index]
                 context.delete(item)
-                WidgetCenter.shared.reloadAllTimelines()
             }
         }
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func addList() {
