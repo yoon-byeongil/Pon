@@ -22,13 +22,18 @@ struct Provider: TimelineProvider {
                 configurations: ModelConfiguration(url: url)
             )
             let modelContext = ModelContext(container)
-            let todos = try modelContext.fetch(FetchDescriptor<Todo>())
+            
+            let descriptor = FetchDescriptor<Todo>(
+                sortBy: [SortDescriptor(\Todo.createAt, order: .reverse)]
+            )
+            let todos = try modelContext.fetch(descriptor)
+            
             let entry = SimpleEntry(date: Date(), todos: todos)
-            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            let timeline = Timeline(entries: [entry], policy: .never)
             completion(timeline)
         } catch {
             let entry = SimpleEntry(date: Date(), todos: [])
-            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            let timeline = Timeline(entries: [entry], policy: .never)
             completion(timeline)
         }
     }
@@ -59,6 +64,8 @@ struct PonWidgetEntryView : View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
     }
 }
 

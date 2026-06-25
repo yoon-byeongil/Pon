@@ -38,6 +38,7 @@ struct HomeView: View {
                                     withAnimation(.default) {
                                         todo.isCompleted.toggle()
                                     }
+                                    try? context.save()
                                     WidgetCenter.shared.reloadAllTimelines()
                                 }) {
                                     if todo.isCompleted {
@@ -94,6 +95,7 @@ struct HomeView: View {
                 context.delete(item)
             }
         }
+        try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
     }
     
@@ -102,6 +104,7 @@ struct HomeView: View {
             let newTodo = Todo(title: todotext, isCompleted: false)
             context.insert(newTodo)
             todotext = ""
+            try? context.save()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
