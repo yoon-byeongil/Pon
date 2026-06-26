@@ -55,6 +55,7 @@
 		0CFE90FF2FEBA2D100805785 /* Exceptions for "Pon" folder in "PonWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Intent/ToggleTodoIntent.swift,
 				Model/TodoModel.swift,
 			);
 			target = 0CFE90E52FEB971E00805785 /* PonWidgetExtension */;

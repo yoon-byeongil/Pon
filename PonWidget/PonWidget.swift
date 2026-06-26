@@ -1,6 +1,7 @@
 import WidgetKit
 import SwiftUI
 import SwiftData
+import AppIntents
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
@@ -59,9 +60,14 @@ struct PonWidgetEntryView : View {
         VStack(alignment: .leading) {
             ForEach(Array(incompleteTodos)) { todo in
                 HStack {
-                    Image(systemName: "circle")
+                    Button(intent: ToggleTodoIntent(todoID: todo.id.uuidString)) {
+                        Image(systemName: "circle")
+                            .foregroundStyle(.primary)
+                    }
+                    .buttonStyle(.plain)
                     Text(todo.title)
                 }
+                .padding(.vertical, 6)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
