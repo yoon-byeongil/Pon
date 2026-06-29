@@ -16,6 +16,7 @@ struct ShortCutView: View {
                             Image(systemName: "button.programmable")
                                 .font(.system(size: 24))
                                 .frame(width: 36)
+                                .foregroundStyle(.tint)
                             VStack(alignment: .leading) {
                                 Text("アクションボタンに割り当てる")
                                     .font(.title3)
@@ -27,6 +28,7 @@ struct ShortCutView: View {
                             Image(systemName: "widget.small")
                                 .font(.system(size: 24))
                                 .frame(width: 36)
+                                .foregroundStyle(.tint)
                             VStack(alignment: .leading) {
                                 Text("ウィジェットから実行")
                                     .font(.title3)
@@ -38,6 +40,7 @@ struct ShortCutView: View {
                             Image(systemName: "hand.tap.fill")
                                 .font(.system(size: 24))
                                 .frame(width: 36)
+                                .foregroundStyle(.tint)
                             VStack(alignment: .leading) {
                                 Text("背面タップで実行")
                                     .font(.title3)

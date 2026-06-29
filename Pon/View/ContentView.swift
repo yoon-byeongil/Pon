@@ -2,6 +2,9 @@ import SwiftUI
 
 
 struct ContentView: View {
+    
+    @AppStorage("themeColor") var themeColor: String = "blue"
+    
     var body: some View {
         TabView {
             HomeView()
@@ -13,6 +16,7 @@ struct ContentView: View {
                     Image(systemName: "gearshape.fill")
                 }
         }
+        .tint(stringToColor(themeColor))
     }
 }
 

@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct AboutView: View {
+    
+    @AppStorage("themeColor") var themeColor: String = "blue"
+    
     var body: some View {
         ZStack {
             Color(UIColor.systemGroupedBackground)

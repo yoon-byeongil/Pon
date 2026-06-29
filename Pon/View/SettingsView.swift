@@ -8,20 +8,32 @@ struct SettingsView: View {
             
             NavigationStack {
                 List {
-                    NavigationLink(destination: ShortCutView()) {
-                        HStack {
-                            Image(systemName: "wand.and.sparkles")
-                            Text("ショートカット設定")
+                    Section {
+                        NavigationLink(destination: DesignView()) {
+                            HStack {
+                                Image(systemName: "paintpalette")
+                                    .foregroundStyle(.tint)
+                                Text("デザイン")
+                            }
                         }
                     }
-                    NavigationLink(destination: AboutView()) {
-                        HStack {
-                            Image(systemName: "person.crop.circle")
-                            Text("プログラマー")
+                    Section("ヘルプ") {
+                        NavigationLink(destination: ShortCutView()) {
+                            HStack {
+                                Image(systemName: "wand.and.sparkles")
+                                    .foregroundStyle(.tint)
+                                Text("ショートカット設定")
+                            }
+                        }
+                        NavigationLink(destination: AboutView()) {
+                            HStack {
+                                Image(systemName: "person.crop.circle")
+                                    .foregroundStyle(.tint)
+                                Text("プログラマー")
+                            }
                         }
                     }
                 }
-                .navigationTitle("ヘルプ")
             }
         }
     }

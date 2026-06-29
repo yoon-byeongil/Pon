@@ -5,7 +5,7 @@ import WidgetKit
 struct TodoRow: View {
     let todo: Todo
     let onToggle: () -> Void
-    
+        
     var body: some View {
         HStack {
             Button(action: onToggle) {
@@ -81,10 +81,17 @@ struct HomeView: View {
                     .listRowSpacing(10)
                     .scrollDismissesKeyboard(.immediately)
                 } else {
-                    ContentUnavailableView(
-                        "やることを追加しましょう",
-                        systemImage: "list.bullet.badge.ellipsis"
-                    )
+                    ContentUnavailableView {
+                        Label {
+                            Text("空いています")
+                                .foregroundStyle(.primary)
+                        } icon: {
+                            Image(systemName: "checkmark.circle.badge.questionmark")
+                            .foregroundStyle(.tint)
+                        }
+                    } description: {
+                        Text("タスクを追加しましょう")
+                    }
                 }
                     
                 HStack {
