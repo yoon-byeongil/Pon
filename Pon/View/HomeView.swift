@@ -2,6 +2,22 @@ import SwiftUI
 import SwiftData
 import WidgetKit
 
+struct TodoRow: View {
+    let todo: Todo
+    let onToggle: () -> Void
+    
+    var body: some View {
+        HStack {
+            Button(action: onToggle) {
+                Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+            }
+            Text(todo.title)
+                .strikethrough(todo.isCompleted)
+                .foregroundStyle(todo.isCompleted ? .gray : .primary)
+        }
+    }
+}
+
 struct HomeView: View {
     
     @Environment(\.modelContext) var context
@@ -9,52 +25,58 @@ struct HomeView: View {
     
     @State var todotext: String = ""
     
+    var today = Date()
+    
+    private var japaneseDateString: String {
+        let locale = Locale(identifier: "ja_JP")
+        return today.formatted(
+            .dateTime
+            .month(.wide)
+            .day(.twoDigits)
+            .weekday(.short)
+            .locale(locale)
+        )
+    }
+    
     var body: some View {
         ZStack {
-            /*
-            LinearGradient(
-                stops: [
-                    .init(color: Color(red: 1, green: 0.0, blue: 0.0), location: -0.15),
-                    .init(color: Color(.systemBackground), location: 0.2)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-            */
             Color(UIColor.systemGroupedBackground)
                 .ignoresSafeArea()
             
             VStack {
-                Text(Date(), format: .dateTime.day().month().weekday())
-                    .environment(\.locale, Locale(identifier: "ja_JP"))
-                    .font(.largeTitle)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
+                HStack {
+                    Text(japaneseDateString)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.horizontal)
+                    Spacer()
+                }
                 
                 if !todos.isEmpty {
-                    List() {
-                        ForEach(todos) { todo in
-                            HStack {
-                                Button(action: {
-                                    withAnimation(.default) {
-                                        todo.isCompleted.toggle()
-                                    }
+                    List {
+                        Section("To do") {
+                            ForEach(todos.filter { !$0.isCompleted }) { todo in
+                                TodoRow(todo: todo) {
+                                    withAnimation(.default) { todo.isCompleted.toggle() }
                                     try? context.save()
                                     WidgetCenter.shared.reloadAllTimelines()
-                                }) {
-                                    if todo.isCompleted {
-                                        Image(systemName: "checkmark.circle.fill")
-                                    } else {
-                                        Image(systemName: "circle")
+                                }
+                            }
+                            .onDelete(perform: deleteIncompleteTodo(at:))
+                        }
+                        
+                        if !todos.filter( { $0.isCompleted }).isEmpty {
+                            Section("完了") {
+                                ForEach(todos.filter( { $0.isCompleted })) { todo in
+                                    TodoRow(todo: todo) {
+                                        withAnimation(.default) { todo.isCompleted.toggle() }
+                                        try? context.save()
+                                        WidgetCenter.shared.reloadAllTimelines()
                                     }
                                 }
-                                Text(todo.title)
-                                    .strikethrough(todo.isCompleted)
-                                    .foregroundStyle(todo.isCompleted ? .gray : .primary)
+                                .onDelete(perform: deleteCompletedTodo(at:))
                             }
                         }
-                        .onDelete(perform: deleteList)
                     }
                     .listRowSpacing(10)
                     .scrollDismissesKeyboard(.immediately)
@@ -64,7 +86,7 @@ struct HomeView: View {
                         systemImage: "list.bullet.badge.ellipsis"
                     )
                 }
-                
+                    
                 HStack {
                     TextField ("Todoを追加する", text: $todotext)
                         .padding(.horizontal)
@@ -90,10 +112,23 @@ struct HomeView: View {
         } // ZStack
     } // body
     
-    func deleteList(at offsets: IndexSet) {
+    func deleteIncompleteTodo(at offsets: IndexSet) {
+        let incompleteTodo = todos.filter( { !$0.isCompleted })
         withAnimation {
             for index in offsets {
-                let item = todos[index]
+                let item = incompleteTodo[index]
+                context.delete(item)
+            }
+        }
+        try? context.save()
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+    
+    func deleteCompletedTodo(at offsets: IndexSet) {
+        let completedTodo = todos.filter({ $0.isCompleted })
+        withAnimation {
+            for index in offsets {
+                let item = completedTodo[index]
                 context.delete(item)
             }
         }
