@@ -32,7 +32,7 @@ struct HomeView: View {
         return today.formatted(
             .dateTime
             .month(.wide)
-            .day(.twoDigits)
+            .day(.defaultDigits)
             .weekday(.short)
             .locale(locale)
         )
@@ -44,6 +44,7 @@ struct HomeView: View {
                 .ignoresSafeArea()
             
             VStack {
+                Spacer()
                 HStack {
                     Text(japaneseDateString)
                         .font(.largeTitle)
@@ -95,7 +96,7 @@ struct HomeView: View {
                 }
                     
                 HStack {
-                    TextField ("Todoを追加する", text: $todotext)
+                    TextField ("タスクを追加する", text: $todotext)
                         .padding(.horizontal)
                         .onSubmit {
                             addList()
@@ -111,8 +112,8 @@ struct HomeView: View {
                 }
                 .padding(12)
                 .background(Color(.secondarySystemBackground))
-                .cornerRadius(52)
-                .shadow(radius: 4)
+                .cornerRadius(28)
+                .shadow(radius: 3)
                 .padding(.horizontal)
                 .padding(.bottom)
             } // Vstack

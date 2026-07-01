@@ -27,9 +27,9 @@ struct SettingsView: View {
                         }
                         NavigationLink(destination: AboutView()) {
                             HStack {
-                                Image(systemName: "person.crop.circle")
+                                Image(systemName: "questionmark.circle")
                                     .foregroundStyle(.tint)
-                                Text("プログラマー")
+                                Text("バージョン")
                             }
                         }
                     }
