@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import WidgetKit
+import ActivityKit
 
 struct TodoRow: View {
     let todo: Todo
@@ -118,7 +119,11 @@ struct HomeView: View {
                 .padding(.bottom)
             } // Vstack
         } // ZStack
+        .onAppear {
+            startLiveActivity()
+        }
     } // body
+    
     
     func deleteIncompleteTodo(at offsets: IndexSet) {
         let incompleteTodo = todos.filter( { !$0.isCompleted })
@@ -151,6 +156,30 @@ struct HomeView: View {
             todotext = ""
             try? context.save()
             WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+    
+    func startLiveActivity() {
+        if !Activity<PonActivityAttributes>.activities.isEmpty {
+            return
+        }
+        
+        let incompleteTodos = todos.filter { !$0.isCompleted }.prefix(3)
+
+        let initialState = PonActivityAttributes.ContentState(
+            todoTitles: incompleteTodos.map { $0.title },
+            todoIDs: incompleteTodos.map { $0.id.uuidString }
+        )
+        
+        let attributes = PonActivityAttributes()
+        
+        do {
+            let activity = try Activity.request(
+                attributes: attributes,
+                content: .init(state: initialState, staleDate: nil)
+            )
+        } catch {
+            print(error)
         }
     }
 }
