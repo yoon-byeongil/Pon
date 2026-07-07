@@ -2,6 +2,7 @@ import WidgetKit
 import SwiftUI
 import SwiftData
 import AppIntents
+import ActivityKit
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
@@ -91,6 +92,48 @@ struct PonWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+    }
+}
+
+struct PonLiveActivityView: View {
+    let context: ActivityViewContext<PonActivityAttributes>
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            ForEach(Array(zip(context.state.todoTitles, context.state.todoIDs)), id: \.1) { title, id in
+                HStack {
+                    Button(intent: ToggleTodoLiveActivityIntent(todoID: id)) {
+                        Image(systemName: "circle")
+                            .foregroundStyle(.primary)
+                    }
+                    .buttonStyle(.plain)
+                    Text(title)
+                }
+                .padding(.vertical, 6)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+    }
+}
+
+struct PonLiveActivity: Widget {
+    var body: some WidgetConfiguration {
+        ActivityConfiguration(for: PonActivityAttributes.self) { context in
+            PonLiveActivityView(context: context)
+        } dynamicIsland: { context in
+            DynamicIsland {
+                DynamicIslandExpandedRegion(.leading) {
+                    PonLiveActivityView(context: context)
+                }
+            } compactLeading: {
+                Image(systemName: "checklist")
+            } compactTrailing: {
+                Text("\(context.state.totalCount)")
+            } minimal: {
+                Image(systemName: "checklist")
+            }
+        }
     }
 }
 

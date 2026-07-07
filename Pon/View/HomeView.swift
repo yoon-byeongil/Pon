@@ -62,6 +62,7 @@ struct HomeView: View {
                                     withAnimation(.default) { todo.isCompleted.toggle() }
                                     try? context.save()
                                     WidgetCenter.shared.reloadAllTimelines()
+                                    updateLiveActivity()
                                 }
                             }
                             .onDelete(perform: deleteIncompleteTodo(at:))
@@ -74,6 +75,7 @@ struct HomeView: View {
                                         withAnimation(.default) { todo.isCompleted.toggle() }
                                         try? context.save()
                                         WidgetCenter.shared.reloadAllTimelines()
+                                        updateLiveActivity()
                                     }
                                 }
                                 .onDelete(perform: deleteCompletedTodo(at:))
@@ -135,6 +137,7 @@ struct HomeView: View {
         }
         try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
+        updateLiveActivity()
     }
     
     func deleteCompletedTodo(at offsets: IndexSet) {
@@ -147,6 +150,7 @@ struct HomeView: View {
         }
         try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
+        updateLiveActivity()
     }
     
     func addList() {
@@ -156,6 +160,7 @@ struct HomeView: View {
             todotext = ""
             try? context.save()
             WidgetCenter.shared.reloadAllTimelines()
+            updateLiveActivity()
         }
     }
     
@@ -168,7 +173,8 @@ struct HomeView: View {
 
         let initialState = PonActivityAttributes.ContentState(
             todoTitles: incompleteTodos.map { $0.title },
-            todoIDs: incompleteTodos.map { $0.id.uuidString }
+            todoIDs: incompleteTodos.map { $0.id.uuidString },
+            totalCount: todos.filter { !$0.isCompleted }.count
         )
         
         let attributes = PonActivityAttributes()
@@ -180,6 +186,21 @@ struct HomeView: View {
             )
         } catch {
             print(error)
+        }
+    }
+    
+    func updateLiveActivity() {
+        let incompleteTodos = todos.filter { !$0.isCompleted }.prefix(3)
+        let newState = PonActivityAttributes.ContentState(
+            todoTitles: incompleteTodos.map { $0.title },
+            todoIDs: incompleteTodos.map { $0.id.uuidString },
+            totalCount: todos.filter { !$0.isCompleted }.count
+        )
+        
+        Task {
+            for activity in Activity<PonActivityAttributes>.activities {
+                await activity.update(.init(state: newState, staleDate: nil))
+            }
         }
     }
 }

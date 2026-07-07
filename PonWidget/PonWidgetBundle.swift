@@ -1,10 +1,3 @@
-//
-//  PonWidgetBundle.swift
-//  PonWidget
-//
-//  Created by 윤병일 on 2026/06/24.
-//
-
 import WidgetKit
 import SwiftUI
 
@@ -12,5 +5,6 @@ import SwiftUI
 struct PonWidgetBundle: WidgetBundle {
     var body: some Widget {
         PonWidget()
+        PonLiveActivity()
     }
 }
