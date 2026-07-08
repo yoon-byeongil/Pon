@@ -91,7 +91,7 @@ struct HomeView: View {
                                 .foregroundStyle(.primary)
                         } icon: {
                             Image(systemName: "checkmark.circle.badge.questionmark")
-                            .foregroundStyle(.tint)
+                                .foregroundStyle(.tint)
                         }
                     } description: {
                         Text("タスクを追加しましょう")
@@ -180,7 +180,7 @@ struct HomeView: View {
         let attributes = PonActivityAttributes()
         
         do {
-            let activity = try Activity.request(
+            let _ = try Activity.request(
                 attributes: attributes,
                 content: .init(state: initialState, staleDate: nil)
             )
