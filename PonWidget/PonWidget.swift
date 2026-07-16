@@ -71,6 +71,7 @@ struct PonWidgetEntryView : View {
                     .font(.caption)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         default:
             VStack(alignment: .leading) {
                 ForEach(Array(incompleteTodos)) { todo in
@@ -84,7 +85,7 @@ struct PonWidgetEntryView : View {
                     }
                     .padding(.vertical, 6)
                 }
-            }
+            } 
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
         }
@@ -107,7 +108,7 @@ struct PonWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
-        .supportedFamilies([.systemSmall, .accessoryRectangular])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
     }
 }
 
