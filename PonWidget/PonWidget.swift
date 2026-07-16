@@ -52,27 +52,42 @@ struct SimpleEntry: TimelineEntry {
 
 struct PonWidgetEntryView : View {
     var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family
 
     var body: some View {
         let incompleteTodos = entry.todos
             .filter { !$0.isCompleted }
             .prefix(3)
-        
-        VStack(alignment: .leading) {
-            ForEach(Array(incompleteTodos)) { todo in
-                HStack {
-                    Button(intent: ToggleTodoIntent(todoID: todo.id.uuidString)) {
+
+        switch family {
+        case .accessoryRectangular:
+            VStack(alignment: .leading, spacing: 2) {
+                ForEach(Array(incompleteTodos)) { todo in
+                    HStack(spacing: 4) {
                         Image(systemName: "circle")
-                            .foregroundStyle(.primary)
+                        Text(todo.title)
+                            .lineLimit(1)
                     }
-                    .buttonStyle(.plain)
-                    Text(todo.title)
+                    .font(.caption)
                 }
-                .padding(.vertical, 6)
             }
+        default:
+            VStack(alignment: .leading) {
+                ForEach(Array(incompleteTodos)) { todo in
+                    HStack {
+                        Button(intent: ToggleTodoIntent(todoID: todo.id.uuidString)) {
+                            Image(systemName: "circle")
+                                .foregroundStyle(.primary)
+                        }
+                        .buttonStyle(.plain)
+                        Text(todo.title)
+                    }
+                    .padding(.vertical, 6)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
     }
 }
 
@@ -92,6 +107,7 @@ struct PonWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .supportedFamilies([.systemSmall, .accessoryRectangular])
     }
 }
 
